@@ -16,20 +16,19 @@ class Gossip
 
     def self.all
         all_gossips = []
-        CSV.read("./db/gossip.csv").each do |csv_line|
-          all_gossips << Gossip.new(csv_line[0], csv_line[1])
+        csv_data = CSV.read("./db/gossip.csv", headers: true)
+        csv_data.each do |csv_line|
+            all_gossips << Gossip.new(csv_line['gossip_author'], csv_line['gossip_content'])
         end
+      
         return all_gossips
     end
-
     def self.find(id)
         id = id.to_i
-        all_gossips = Gossip.all
-        if id >= 1 && id <= all_gossips.length
-          return all_gossips[id - 1]  # Soustrayez 1 car les indices commencent généralement à 0
-        else
-          return nil  # Retourne nil si l'ID n'est pas valide
+        CSV.foreach("./db/gossip.csv", headers: true).with_index(1) do |row, index|
+          return { 'author' => row['gossip_author'], 'content' => row['gossip_content'] } if index == id
         end
+        nil
       end
 
 

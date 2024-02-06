@@ -3,13 +3,13 @@
     <title>The Gossip Project</title>
   </head>
   <body>
-  <a href="/gossips/new/">Soumettre de nouveaux potins</a>
+    <a href="/gossips/new/">Soumettre de nouveaux potins</a>
     <h1>Mon super site de gossip, depuis le dossier views !</h1>
-    <% gossips.each do |gossip| %>
-      <p>
+    <% gossips.each_with_index do |gossip, index| %>
+      <a href="/gossips/<%= index + 1 %>"><p> <!-- Ici, nous utilisons 'index + 1' comme ID du potin -->
         <%= gossip.author %><br/>
         <%= gossip.content %>
-      </p>
+      </p></a>
     <% end %>
   </body>
 </html>
