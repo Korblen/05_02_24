@@ -16,15 +16,14 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/gossips/:id' do
-
     id = params['id']
-
     gossip = Gossip.find(id)
   
     if gossip
-        erb :show, locals: { gossip: gossip, gossip_id: id }
+      puts gossip
+      erb :show, locals: { gossip: gossip, gossip_id: id }
     else
-        "Aucun potin trouvé avec l'ID #{id}"
+      "Aucun potin trouvé avec l'ID #{id}"
     end
   end
 
